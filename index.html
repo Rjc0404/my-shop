@@ -1,28 +1,161 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Global General Store - 百货商店</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTMLPreview - Direct GitHub & BitBucket HTML Renderer</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
-        .product { border: 1px solid #ccc; padding: 20px; display: inline-block; margin: 10px; width: 200px; }
-        img { width: 100%; height: 150px; background: #eee; }
+        body {
+            font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            color: #24292e;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f8fa;
+        }
+        /* 导航栏 - 增加专业感 */
+        .navbar {
+            background-color: #24292e;
+            color: #fff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            box-shadow: 0 8px 24px rgba(149,157,165,0.2);
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        p.description {
+            color: #586069;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        input[type="url"] {
+            width: 80%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border: 1px solid #d1d5da;
+            border-radius: 3px;
+            outline: none;
+            box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
+        }
+        input[type="submit"] {
+            background-color: #2ea44f;
+            color: #fff;
+            padding: 10px 20px;
+            font-weight: 600;
+            border: 1px solid rgba(27,31,35,0.15);
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #2c974b;
+        }
+        .example {
+            margin-top: 30px;
+            padding: 15px;
+            background: #fffbdd;
+            border: 1px solid #d1d5da;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #24292e;
+        }
+        code {
+            background-color: rgba(27,31,35,0.05);
+            padding: 2px 4px;
+            border-radius: 3px;
+            color: #e83e8c;
+        }
+        #footer {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid #e1e4e8;
+            font-size: 12px;
+            color: #6a737d;
+            text-align: center;
+        }
+        #footer a {
+            color: #0366d6;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .legal-links {
+            margin-top: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>精品百货 - 在线展示</h1>
-    <p>提供全球优质家居、电子配件及日用品。</p>
-    <div class="product">
-        <div style="background:#ddd;height:150px;line-height:150px">商品图 1</div>
-        <h3>数码配件</h3>
-        <p>价格: $19.99</p>
+
+    <nav class="navbar">
+        <div style="font-weight: bold; font-size: 18px;">HTMLPreview Pro</div>
+        <div>
+            <a href="#">Solutions</a>
+            <a href="#">Documentation</a>
+            <a href="#">Pricing</a>
+            <a href="#" style="border: 1px solid #fff; padding: 5px 10px; border-radius: 4px;">Sign In</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>GitHub &amp; BitBucket HTML Preview</h1>
+        <p class="description">Fast, secure, and reliable client-side rendering for your repository files.</p>
+        
+        <form id="previewform" onsubmit="handlePreview(event)">
+            <div class="input-group">
+                <input type="url" id="file" placeholder="e.g. https://github.com/user/repo/blob/master/index.html" required autofocus>
+                <input type="submit" value="Preview">
+            </div>
+        </form>
+
+        <div class="example">
+            <strong>Pro Tip:</strong> You can also prepend the URL: 
+            <code>https://htmlpreview.github.io/?https://github.com/twbs/bootstrap/blob/gh-pages/2.3.2/index.html</code>
+        </div>
     </div>
-    <div class="product">
-        <div style="background:#ddd;height:150px;line-height:150px">商品图 2</div>
-        <h3>家居用品</h3>
-        <p>价格: $29.99</p>
+
+    <div id="footer">
+        <p>Developed by <a href="#">Niu Tech</a> | Powered by GitHub API v3</p>
+        <div class="legal-links">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="#">Refund Policy</a> | 
+            <a href="#">Contact Support</a>
+        </div>
+        <p style="margin-top: 20px;">&copy; 2026 HTMLPreview Project. All rights reserved.</p>
     </div>
-    <hr>
-    <p>联系我们: support@example.com</p>
+
+    <script>
+        function handlePreview(e) {
+            e.preventDefault();
+            const url = document.getElementById('file').value;
+            if (url) {
+                // 模拟处理逻辑，实际跳转
+                alert('Redirecting to secure preview proxy...');
+                window.location.href = '/?' + url;
+            }
+        }
+    </script>
 </body>
 </html>
